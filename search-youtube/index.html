@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  </style>
+  <script>
+    function getData() {
+      var query = document.getElementById("search-box").value;
+      var apiUrl = "https://vapis.run.goorm.app/api/youtube?limit=5&q=" + query;
+      
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", apiUrl, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          var videos = response.result;
+
+          displayVideos(videos);
+        }
+      };
+      xhr.send();
+    }
+
+    function displayVideos(videos) {
+      var container = document.getElementById("video-container");
+      container.innerHTML = ""; // 기존 내용 초기화
+
+      videos.forEach(video => {
+        var title = video.snippet.title;
+        var videoId = video.id.videoId;
+
+        var titleElement = document.createElement("p");
+        titleElement.textContent = title;
+        container.appendChild(titleElement);
+
+        var linkElement = document.createElement("a");
+        linkElement.href = "https://www.youtube.com/watch?v=" + videoId;
+        linkElement.textContent = "https://www.youtube.com/watch?v=" + videoId;
+        container.appendChild(linkElement);
+
+      });
+    }
+  </script>
+</head>
+<body>
+  <input type="text" id="search-box">
+  <button onclick="getData()">검색</button>
+  
+  <div id="video-container"></div>
+</body>
+</html>

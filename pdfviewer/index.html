@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PDF Viewer</title>
+  </head>
+  <body>
+    <form method="GET">
+      <input type="text" id="url-input" name="url" style="display:none;">
+      <button onClick="window.location.reload()">PDF가 안 보일 경우, 여기를 눌러 새로고침하세요.</button>
+    </form>
+    <iframe id="pdf-viewer" style="width:100%; height:80vh;"></iframe>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const url = params.get('url');
+      const urlInput = document.querySelector('#url-input');
+      const pdfViewer = document.querySelector('#pdf-viewer');
+
+      if (url) {
+        urlInput.value = url;
+        pdfViewer.src = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+      }
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const url = urlInput.value;
+        pdfViewer.src = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+      });
+    </script>
+    <ins class="kakao_ad_area" style="display:none;"
+data-ad-unit = "DAN-Zfg6Cz8Ahib1VY3n"
+data-ad-width = "320"
+data-ad-height = "100"></ins>
+<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta property="og:image" content="https://minhoo.ga/corona/corona_photo.png"/>
+  <title>코로나 정보 | minhoo.ga</title> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+  <ins class="kakao_ad_area" style="display:none;" 
+ data-ad-unit    = "DAN-34bVWE4TuD2pnc1H" 
+ data-ad-width   = "320" 
+ data-ad-height  = "100"></ins> 
+<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+  </div>
+  <script>
+    $(function(){
+        $.ajax({
+            url : "https://capi.msub.kr/",
+            type : "get",
+            dataType : "json",
+            success : function(data){
+                $(".update").append(data.update);
+                $(".tconfirmation").append(data.today.confirmation)
+                $(".aconfirmation").append(data.accumulate.confirmation)
+                var tdead = data.today.dead;
+                $(".tdead").append(data.today.dead);
+                $(".adead").append(data.accumulate.dead)
+            },
+            error : function(){
+                console.log("error!");
+            }
+        })     
+
+        $("body").append("<h1><center>코로나 정보</center></h1><br>");
+        $("body").append("<div class=main></div>");
+
+        $(".move").css({
+            "width" : "100px",
+            "height" : "30px",
+            "text-align" : "center",
+            "border-radius" : "10px",
+            "background-color" : "rgb(207, 255, 160)"
+        });  
+        $("<div class=corona></div>").insertAfter("div.main")
+        .append("<p class=update></p><br>");
+        $("div.corona").append("<p class=tconfirmation>신규 확진자: </p>")
+        .append("<p class=tdead>신규 사망자: </p>")
+        .append("<p class=aconfirmation>누적 확진자: </p>")
+        .append("<p class=adead>누적 사망자: </p>")
+        .css({
+            "width" : "300px",
+            "height" : "auto",
+            "margin" : "auto",
+            "padding" : "15px",
+            "background-color" : "rgb(255, 220, 226)",
+            "text-align" : "center",
+            "border-radius" : "100px"
+        });
+    });
+</script>
+ </head>  
+ <body>  
+ </body>
+</html>
